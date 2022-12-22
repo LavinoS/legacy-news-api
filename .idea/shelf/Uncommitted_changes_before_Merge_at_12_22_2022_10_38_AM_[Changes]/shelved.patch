@@ -1,8 +1,0 @@
-Index: db/WiredTiger.lock
-===================================================================
-diff --git a/db/WiredTiger.lock b/db/WiredTiger.lock
---- a/db/WiredTiger.lock	
-+++ b/db/WiredTiger.lock	
-@@ -1,1 +1,2 @@
- WiredTiger lock file
-+
