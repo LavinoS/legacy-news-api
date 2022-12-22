@@ -1,6 +1,6 @@
 {
   "name": "legacy-news-api",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "src/app.js",
   "type": "module",
   "scripts": {
