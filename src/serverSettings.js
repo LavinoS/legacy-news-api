@@ -12,7 +12,8 @@ const serverSettings = {
 
   mongodbServerUrl: parseEnv('DB_CONNECTION_URI'),
   mongodbConnectionInfo: mongoUri.parse(parseEnv('DB_CONNECTION_URI')),
-  dbConnectionPoolSize: parseEnv('DB_CONNECTION_POOL_SIZE', 'number', false),
+  mongodbDatabaseName: parseEnv('DB_NAME'),
+  dbConnectionPoolSize: parseEnv('DB_CONNECTION_POOL_SIZE', 'number', false)
 };
 
 export default serverSettings;
