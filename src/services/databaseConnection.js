@@ -6,18 +6,18 @@ const databaseConnection = async () => {
   const connectionOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    maxPoolSize: serverSettings.dbConnectionPoolSize || 5,
+    maxPoolSize: serverSettings.dbConnectionPoolSize || 5
   };
 
   try {
     const mongoClient = new MongoClient(
       serverSettings.mongodbServerUrl,
-      connectionOptions,
+      connectionOptions
     );
 
     await mongoClient.connect();
 
-    const db = mongoClient.db(serverSettings.mongodbConnectionInfo.database);
+    const db = mongoClient.db(serverSettings.mongodbDatabaseName);
 
     mongoClient.on('close', () => {
       logger.info('MongoDB connection was closed');
@@ -27,7 +27,7 @@ const databaseConnection = async () => {
 
     return {
       dbConn: db,
-      dbClient: mongoClient,
+      dbClient: mongoClient
     };
   } catch (e) {
     logger.error(`MongoDB connection has failed: ${e.message}`, e.message);
