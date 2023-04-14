@@ -1,18 +1,8 @@
 import databaseConnection from '../../../services/databaseConnection.js';
 import logger from '../../../utils/logger.js';
-import createError from 'http-errors';
 import registrationUserTransformer from '../models/registrationUserTransformer.js';
 import pathParser from '../../../utils/pathParser.js';
-
-const checkingForExistingUsers = async (dbConn, reqUrl, email) => {
-  const existingUser = await dbConn.collection(reqUrl).findOne({ userEmail: email });
-
-  if (existingUser) {
-    throw createError(400, 'This user already exists!');
-  }
-
-  return null;
-};
+import { checkingForExistingUsers } from '../services/registerService.js';
 
 
 const registrationController = async (req, res) => {
@@ -20,7 +10,6 @@ const registrationController = async (req, res) => {
     if (!req.body) {
       return null;
     }
-
     const requestUrl = await pathParser(req.route.path, 'parse');
     const registrationModel = await registrationUserTransformer(req.body);
 
