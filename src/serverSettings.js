@@ -13,7 +13,12 @@ const serverSettings = {
   mongodbServerUrl: parseEnv('DB_CONNECTION_URI'),
   mongodbConnectionInfo: mongoUri.parse(parseEnv('DB_CONNECTION_URI')),
   mongodbDatabaseName: parseEnv('DB_NAME'),
-  dbConnectionPoolSize: parseEnv('DB_CONNECTION_POOL_SIZE', 'number', false)
+  dbConnectionPoolSize: parseEnv('DB_CONNECTION_POOL_SIZE', 'number', false),
+
+  bucketName: parseEnv('BUCKET_NAME'),
+  accessKey: parseEnv('S3_ACCESS_KEY'),
+  secretAccessKey: parseEnv('S3_SECRET_ACCESS_KEY'),
+  region: parseEnv('S3_REGION')
 };
 
 export default serverSettings;

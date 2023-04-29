@@ -1,9 +1,8 @@
 import databaseConnection from '../../../services/databaseConnection.js';
 import logger from '../../../utils/logger.js';
 import pathParser from '../../../utils/pathParser.js';
-import { checkingForUser } from '../services/loginService.js';
 
-const loginController = async (req, res) => {
+const receiveArticlesPrivateController = async (req, res) => {
   try {
     if (!req.body) {
       return null;
@@ -12,14 +11,11 @@ const loginController = async (req, res) => {
     const { dbConn } = await databaseConnection();
     const requestUrl = await pathParser(req.route.path, 'parse');
 
-    const { email, password } = req.body;
-
-    const loginToken = await checkingForUser(dbConn, requestUrl, { email, password });
+    const articles = await dbConn.collection(requestUrl).find({}).toArray();
 
     return res.send({
-      message: `You're logged successfully!`,
-      token: loginToken,
-      success: true
+      success: true,
+      data: articles
     });
   } catch (e) {
     logger.error(e.message);
@@ -32,4 +28,4 @@ const loginController = async (req, res) => {
   }
 };
 
-export default loginController;
+export default receiveArticlesPrivateController;

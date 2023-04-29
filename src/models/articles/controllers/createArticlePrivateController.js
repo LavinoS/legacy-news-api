@@ -1,25 +1,22 @@
 import databaseConnection from '../../../services/databaseConnection.js';
 import logger from '../../../utils/logger.js';
 import pathParser from '../../../utils/pathParser.js';
-import { checkingForUser } from '../services/loginService.js';
+import articlePrivateTransformer from '../models/articlePrivateTransformer.js';
+import createArticlePrivateService from '../services/createArticlePrivateService.js';
 
-const loginController = async (req, res) => {
+const createArticlePrivateController = async (req, res) => {
   try {
-    if (!req.body) {
+    if (!req.body || !req.file) {
       return null;
     }
 
-    const { dbConn } = await databaseConnection();
     const requestUrl = await pathParser(req.route.path, 'parse');
 
-    const { email, password } = req.body;
-
-    const loginToken = await checkingForUser(dbConn, requestUrl, { email, password });
+    const processedArticle = await createArticlePrivateService(requestUrl, { ...req.body, file: req.file });
 
     return res.send({
-      message: `You're logged successfully!`,
-      token: loginToken,
-      success: true
+      success: true,
+      data: processedArticle
     });
   } catch (e) {
     logger.error(e.message);
@@ -32,4 +29,4 @@ const loginController = async (req, res) => {
   }
 };
 
-export default loginController;
+export default createArticlePrivateController;
