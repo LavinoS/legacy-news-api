@@ -1,7 +1,5 @@
-import databaseConnection from '../../../services/databaseConnection.js';
 import logger from '../../../utils/logger.js';
 import pathParser from '../../../utils/pathParser.js';
-import articlePrivateTransformer from '../models/articlePrivateTransformer.js';
 import createArticlePrivateService from '../services/createArticlePrivateService.js';
 
 const createArticlePrivateController = async (req, res) => {
