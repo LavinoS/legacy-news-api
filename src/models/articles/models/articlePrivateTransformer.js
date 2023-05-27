@@ -10,6 +10,7 @@ export default async (dto) => {
     featuredImageAlt: alt,
     featuredImage: file,
     status: 'draft',
-    publishDate: ''
+    publishDate: '',
+    sections: []
   };
 }

@@ -2,6 +2,7 @@ import databaseConnection from '../../../services/databaseConnection.js';
 import logger from '../../../utils/logger.js';
 import pathParser from '../../../utils/pathParser.js';
 import { ObjectId } from 'mongodb';
+import receiveArticleByIdPrivateTransformer from '../models/receiveArticleByIdPrivateTransformer.js';
 
 const receiveArticleByIdPrivateController = async (req, res) => {
   try {
@@ -12,10 +13,11 @@ const receiveArticleByIdPrivateController = async (req, res) => {
     const { dbConn } = await databaseConnection();
     const requestUrl = await pathParser(req.route.path);
     const article = await dbConn.collection(requestUrl).findOne({ _id: ObjectId(req.query.id) });
+    const processedArticle = await receiveArticleByIdPrivateTransformer(article);
 
     return res.send({
       success: true,
-      data: article
+      data: processedArticle
     });
   } catch (e) {
     logger.error(e.message);

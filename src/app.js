@@ -6,10 +6,11 @@ import corsOptions from './utils/corsOptions.js';
 import registrationRoute from './models/users/routes/registrationRoute.js';
 import loginRoute from './models/users/routes/loginRoute.js';
 import receiveArticlesPrivateRoute from './models/articles/routes/receiveArticlesPrivateRoute.js';
-import deleteArtcileByIdPrivateRoute from './models/articles/routes/deleteArtcileByIdPrivateRoute.js';
+import deleteArticleByIdPrivateRoute from './models/articles/routes/deleteArticleByIdPrivateRoute.js';
 import updateArticleStatusPrivateRoute from './models/articles/routes/updateArticleStatusPrivateRoute.js';
 import receiveArticleByIdPrivateRoute from './models/articles/routes/receiveArticleByIdPrivateRoute.js';
 import createArticlePrivateRoute from './models/articles/routes/createArticlePrivateRoute.js';
+import editArticleByIdPrivateRoute from './models/articles/routes/editArticleByIdPrivateRoute.js';
 
 const app = express();
 
@@ -26,9 +27,10 @@ app.use(serverSettings.apiBasePath, loginRoute);
 
 //Articles Routes
 app.use(serverSettings.apiBasePath, receiveArticlesPrivateRoute);
-app.use(serverSettings.apiBasePath, deleteArtcileByIdPrivateRoute);
+app.use(serverSettings.apiBasePath, deleteArticleByIdPrivateRoute);
 app.use(serverSettings.apiBasePath, updateArticleStatusPrivateRoute);
 app.use(serverSettings.apiBasePath, receiveArticleByIdPrivateRoute);
 app.use(serverSettings.apiBasePath, createArticlePrivateRoute);
+app.use(serverSettings.apiBasePath, editArticleByIdPrivateRoute);
 
 app.listen(serverSettings.apiListenPort);
