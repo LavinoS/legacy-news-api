@@ -5,7 +5,7 @@ import { uploadFileToS3 } from './createArticlePrivateService.js';
 import { format } from 'date-fns';
 
 export default async (reqPath, dto) => {
-  const { file, id, title, summary, slug, author, type, alt, featuredImage, sections } = dto;
+  const { file, id, title, summary, slug, author, alt, featuredImage, sections, category } = dto;
 
   let image = featuredImage;
 
@@ -41,10 +41,6 @@ export default async (reqPath, dto) => {
     aggregation.$set.author = author;
   }
 
-  if (type !== undefined) {
-    aggregation.$set.type = type;
-  }
-
   if (featuredImage !== undefined || file !== undefined) {
     aggregation.$set.featuredImage = image;
   }
@@ -55,6 +51,10 @@ export default async (reqPath, dto) => {
 
   if (sections !== undefined) {
     aggregation.$set.sections = JSON.parse(sections);
+  }
+
+  if (category !== undefined) {
+    aggregation.$set.category = category;
   }
 
   await dbConn.collection(requestUrl).findOneAndUpdate({ _id: mongoId }, aggregation);

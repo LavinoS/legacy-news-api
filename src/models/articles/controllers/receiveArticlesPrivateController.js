@@ -6,22 +6,21 @@ import receiveArticlesPrivateService from '../services/receiveArticlesPrivateSer
 
 const receiveArticlesPrivateController = async (req, res) => {
   try {
-    if (!req.body) {
+    if (!req.query) {
       return null;
     }
 
     const { dbConn } = await databaseConnection();
     const requestUrl = await pathParser(req.route.path, 'parse');
 
-    const articles = await receiveArticlesPrivateService(req.route.path, req.query);
+    const { articles, totalItems } = await receiveArticlesPrivateService(req.route.path, req.query);
     const filters = await generateArticlesFilterService(requestUrl, dbConn);
-    const totalArticles = await dbConn.collection(requestUrl).countDocuments();
 
     return res.send({
       success: true,
       data: articles,
       filters: filters,
-      total: totalArticles
+      total: totalItems
     });
   } catch (e) {
     logger.error(e.message);

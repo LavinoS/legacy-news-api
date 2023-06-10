@@ -1,8 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+
 import serverSettings from './serverSettings.js';
 import corsOptions from './utils/corsOptions.js';
+
 import registrationRoute from './models/users/routes/registrationRoute.js';
 import loginRoute from './models/users/routes/loginRoute.js';
 import receiveArticlesPrivateRoute from './models/articles/routes/receiveArticlesPrivateRoute.js';
@@ -11,6 +13,10 @@ import updateArticleStatusPrivateRoute from './models/articles/routes/updateArti
 import receiveArticleByIdPrivateRoute from './models/articles/routes/receiveArticleByIdPrivateRoute.js';
 import createArticlePrivateRoute from './models/articles/routes/createArticlePrivateRoute.js';
 import editArticleByIdPrivateRoute from './models/articles/routes/editArticleByIdPrivateRoute.js';
+import receiveUsersPrivateRoute from './models/users/routes/receiveUsersPrivateRoute.js';
+import receiveUserByIdPrivateRoute from './models/users/routes/receiveUserByIdPrivateRoute.js';
+import deleteUserByIdPrivateRoute from './models/users/routes/deleteUserByIdPrivateRoute.js';
+import editUserByIdPrivateRoute from './models/users/routes/editUserByIdPrivateRoute.js';
 
 const app = express();
 
@@ -24,6 +30,10 @@ app.use(cors(corsOptions));
 //User Routes
 app.use(serverSettings.apiBasePath, registrationRoute);
 app.use(serverSettings.apiBasePath, loginRoute);
+app.use(serverSettings.apiBasePath, receiveUsersPrivateRoute);
+app.use(serverSettings.apiBasePath, receiveUserByIdPrivateRoute);
+app.use(serverSettings.apiBasePath, deleteUserByIdPrivateRoute);
+app.use(serverSettings.apiBasePath, editUserByIdPrivateRoute);
 
 //Articles Routes
 app.use(serverSettings.apiBasePath, receiveArticlesPrivateRoute);
