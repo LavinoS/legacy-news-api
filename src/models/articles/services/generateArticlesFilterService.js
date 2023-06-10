@@ -3,7 +3,7 @@ export default async (requestUrl, dbConn) => {
     $group: {
       _id: null,
       author: { $addToSet: '$author' },
-      type: { $addToSet: '$type' },
+      category: { $addToSet: '$category' },
       status: { $addToSet: '$status' }
     }
   },
@@ -11,7 +11,7 @@ export default async (requestUrl, dbConn) => {
       $project: {
         _id: 0,
         author: { $map: { input: '$author', as: 'a', in: { label: '$$a', value: '$$a' } } },
-        type: { $map: { input: '$type', as: 't', in: { label: '$$t', value: '$$t' } } },
+        category: { $map: { input: '$category', as: 't', in: { label: '$$t', value: '$$t' } } },
         status: { $map: { input: '$status', as: 's', in: { label: '$$s', value: '$$s' } } }
       }
     }

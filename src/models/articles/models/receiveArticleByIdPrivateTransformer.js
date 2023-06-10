@@ -10,7 +10,8 @@ export default async (dto) => {
     status,
     _id,
     sections,
-    publishDate
+    publishDate,
+    category
   } = dto;
 
   return {
@@ -24,6 +25,7 @@ export default async (dto) => {
     featuredImage: featuredImage,
     status: status,
     sections: sections,
-    publishDate: publishDate
+    publishDate: publishDate,
+    category: category
   };
 }

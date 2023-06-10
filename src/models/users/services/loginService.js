@@ -15,5 +15,7 @@ export const checkingForUser = async (dbConn, reqUrl, { email, password }) => {
     throw createError(401, `Invalid password`);
   }
 
-  return jwt.sign({ id: existingUser._id }, 'secret');
+  const secretToken = jwt.sign({ id: existingUser._id }, 'secret');
+
+  return { secretToken, role: existingUser.role };
 };
