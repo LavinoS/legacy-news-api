@@ -4,7 +4,6 @@ import registrationUserTransformer from '../models/registrationUserTransformer.j
 import pathParser from '../../../utils/pathParser.js';
 import { checkingForExistingUsers } from '../services/registerService.js';
 
-
 const registrationController = async (req, res) => {
   try {
     if (!req.body) {
@@ -26,12 +25,12 @@ const registrationController = async (req, res) => {
     });
   } catch (e) {
     logger.error(e.message);
+
     return res.status(e.statusCode || 400).json({
       status: e.statusCode,
       message: e.message,
       success: false
     });
-
   }
 };
 

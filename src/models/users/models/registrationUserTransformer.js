@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import { format } from 'date-fns';
 
 export default async (body) => {
   const { name, surname, password, email } = body;
@@ -8,6 +9,8 @@ export default async (body) => {
     firstName: name,
     lastName: surname,
     password: hashedPassword,
-    userEmail: email
+    userEmail: email,
+    role: 'user',
+    registeredAt: format(new Date(), 'dd-MM-yyyy')
   };
 }

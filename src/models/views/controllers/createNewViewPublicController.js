@@ -1,25 +1,21 @@
 import databaseConnection from '../../../services/databaseConnection.js';
 import logger from '../../../utils/logger.js';
 import pathParser from '../../../utils/pathParser.js';
-import { checkingForUser } from '../services/loginService.js';
+import newViewPublicRestTransformer from '../models/newViewPublicRestTransformer.js';
 
-const loginController = async (req, res) => {
+export default async (req, res) => {
   try {
-    if (!req.body) {
+    if (!req.ip) {
       return null;
     }
 
     const { dbConn } = await databaseConnection();
-    const requestUrl = await pathParser(req.route.path, 'parse');
+    const requestUrl = await pathParser(req.route.path);
+    const viewModel = await newViewPublicRestTransformer(req.ip);
 
-    const { email, password } = req.body;
-
-    const { secretToken, role } = await checkingForUser(dbConn, requestUrl, { email, password });
+    await dbConn.collection(requestUrl).insertOne(viewModel);
 
     return res.send({
-      message: `You're logged successfully!`,
-      token: secretToken,
-      role,
       success: true
     });
   } catch (e) {
@@ -32,5 +28,3 @@ const loginController = async (req, res) => {
     });
   }
 };
-
-export default loginController;
