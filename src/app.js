@@ -17,6 +17,8 @@ import receiveUsersPrivateRoute from './models/users/routes/receiveUsersPrivateR
 import receiveUserByIdPrivateRoute from './models/users/routes/receiveUserByIdPrivateRoute.js';
 import deleteUserByIdPrivateRoute from './models/users/routes/deleteUserByIdPrivateRoute.js';
 import editUserByIdPrivateRoute from './models/users/routes/editUserByIdPrivateRoute.js';
+import createNewViewPublicRoute from './models/views/routes/createNewViewPublicRoute.js';
+import receiveStatisticsPrivateRoute from './models/statistics/routes/receiveStatisticsPrivateRoute.js';
 
 const app = express();
 
@@ -42,5 +44,11 @@ app.use(serverSettings.apiBasePath, updateArticleStatusPrivateRoute);
 app.use(serverSettings.apiBasePath, receiveArticleByIdPrivateRoute);
 app.use(serverSettings.apiBasePath, createArticlePrivateRoute);
 app.use(serverSettings.apiBasePath, editArticleByIdPrivateRoute);
+
+//Views Routes
+app.use(serverSettings.apiBasePath, createNewViewPublicRoute);
+
+//Statistics
+app.use(serverSettings.apiBasePath, receiveStatisticsPrivateRoute);
 
 app.listen(serverSettings.apiListenPort);
